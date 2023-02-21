@@ -11,7 +11,7 @@ class toyDetector:
         self.capture_index = capture_index
         self.model = self.load_model(model_name)
         self.classes = self.model.names
-        self.device = 'cuda' if torch.cuda.is_avaliable() else 'cpu'
+        self.device ='cpu'
         print("Using Device: ", self.device)
         
     def get_video_capture(self):
