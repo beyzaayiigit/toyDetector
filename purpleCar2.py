@@ -31,7 +31,7 @@ class toyDetector:
         self.model.to(self.device)
         frame = [frame]
         results = self.model(frame)
-        labels, cord = results.xyxyn[0][:, :-1]
+        labels, cord = results.xyxyn[0][:, :-1], results.xyxyn[0][:, :-1]
         return labels, cord
     
     def class_to_label(self, x):
@@ -46,8 +46,8 @@ class toyDetector:
         for i in range(n):
             row = cord[i]
             if row[4] >= 0.3:
-                x1, y1, x2, y2 = int(row[0]*x_shape), int(row[1]*y_shape), int(row[2]*x_shape), int(row[3]*x_shape)
-                bgr = (255, 0, 0)
+                x1, y1, x2, y2 = int(row[0]*x_shape), int(row[1]*y_shape), int(row[2]*x_shape), int(row[3]*y_shape)
+                bgr = (100, 0, 100)
                 cv2.rectangle(frame, (x1, y1), (x2, y2), bgr, 2)
                 cv2.putText(frame, self.class_to_label(labels[i]), (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.9, bgr, 2)
                 
@@ -72,7 +72,7 @@ class toyDetector:
             end_time = time()
             fps = 1/np.round(end_time - start_time, 2)
             
-            cv2.putText(frame, f'FPS: (int(fps))', (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 0, 0), 2)
+            cv2.putText(frame, f'FPS: (int(fps))', (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (100, 0, 100), 2)
             
             cv2.imshow('YOLOv5 Detection', frame)
             
